@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+
+    <!-- 1.配置url处理映射
+     URL处理映射的方式有三种：目的是通过访问的路径找到对应的控制器
+     1.BeanNameUrlHandlerMapping: 通过url名字，找到对应的bean的name的控制器
+     2.SimpleUrlHandlerMapping:【简单的url处理映射】 通过key找到bean的id控制器
+     3.ControllerClassNameHandlerMapping:【控制器的类名处理映射】 不用配置访问路径，
+        默认的访问路径就是类名，首字母大写变小写，加.do后缀（userController.do）
+     -->
+
+    <!--第一种url映射处理方式-->
+    <!--<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>-->
+
+    <!--第二种url映射处理方式-->
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
+        <!--<property name="mappings">-->
+            <!--<props>-->
+                <!--<prop key="/user1.do">userController</prop>-->
+                <!--<prop key="/user2.do">userController</prop>-->
+                <!--<prop key="/user3.do">userController</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--第三种url映射处理方式-->
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"></bean>
+
+    <!-- 2.配置控制器的处理适配器 -->
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
+
+    <!-- 3.配置控制器-相当于配置了访问路径 -->
+
+    <!--对应第一种url映射 name="/user.do" -->
+    <!--<bean name="/user.do" class="ustc.wzh.web.controller.UserController"></bean>-->
+
+    <!--对应第二种url映射 id="userController" -->
+    <!--<bean id="userController" class="ustc.wzh.web.controller.UserController"></bean>-->
+
+    <!--对应第三种url映射 无name和id-->
+    <bean class="ustc.wzh.web.controller.UserController"></bean>
+
+    <!-- 4.配置资源解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--前缀-->
+        <property name="prefix" value="/WEB-INF/views/"></property>
+        <!--后缀-->
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+</beans>
